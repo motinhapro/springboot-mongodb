@@ -1,5 +1,6 @@
 package com.edumota.springbootmongodb.resources;
 
+import com.edumota.springbootmongodb.domain.Post;
 import com.edumota.springbootmongodb.domain.User;
 import com.edumota.springbootmongodb.dto.UserDTO;
 import com.edumota.springbootmongodb.services.UserService;
@@ -53,5 +54,11 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
